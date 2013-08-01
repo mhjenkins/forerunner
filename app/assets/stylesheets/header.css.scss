@@ -1,0 +1,31 @@
+.header {
+  height: 60px;
+  padding: 15px 20px;
+}
+
+#login-btn{
+  margin-top: 15px;
+  float: right;
+  font-weight: bold;
+}
+
+.logo-icon {
+  background-image: url("forerunner_logo.png");
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 46px;
+}
+
+.logo-text {
+  background-image: url("forerunner_logo_text.png");
+  width: 103px;
+  height: 16px;
+  background-repeat: no-repeat;
+  margin-top: 15px;
+}
+
+.header .logo-icon,
+.header .logo-text{
+  float: left;
+  padding: 0 5px;
+}
