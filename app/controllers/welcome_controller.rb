@@ -13,7 +13,7 @@ class WelcomeController < ApplicationController
         render :nothing => true
       end
       format.json do
-        render :json => {:header => { :loginLink =>  @fs.authorize_uri, :devKey => @fs.dev_key }}
+        render :json => { :loginLink =>  @fs.authorize_uri, :devKey => @fs.dev_key }
       end
     end
   end

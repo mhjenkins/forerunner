@@ -8,7 +8,7 @@ window.Forerunner = {
         this.headerModel = new Forerunner.Models.Header();
 
         this.headerModel.fetch().done(function () {
-            that.headerView = new Forerunner.Views.Header({model:this.headerModel});
+            that.headerView = new Forerunner.Views.Header({model:that.headerModel});
             that.mainView = new Forerunner.Views.Main({});
             $("body").append(that.headerView.render().$el);
             $("body").append(that.mainView.render().$el);

@@ -7,9 +7,9 @@ describe('HeaderView', function(){
     var model;
 
     beforeEach(function(){
-       model = {
+       model = new Forerunner.Models.Header({
            loginLink: 'http://loginLink.com'
-       }
+       });
         view = new Forerunner.Views.Header({model: model});
     });
 

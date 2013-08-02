@@ -23,7 +23,7 @@ describe WelcomeController do
     describe "rendering layout" do
       before do
         @fs = FamilySearch.new(FAMILY_SEARCH_INITIALIZER)
-        @header_response = {:header => {:loginLink => @fs.authorize_uri, :devKey => @fs.dev_key}}
+        @header_response = {:loginLink => @fs.authorize_uri, :devKey => @fs.dev_key}
 
       end
       it "renders no layout for json" do
