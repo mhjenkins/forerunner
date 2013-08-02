@@ -1,20 +1,23 @@
 window.Forerunner = {
-  Models: {},
-  Collections: {},
-  Views: {},
-  Routers: {},
-  initialize: function() {
-     this.headerModel = {
-          loginLink: 'http://loginLink.com'
-      }
-    this.headerView = new Forerunner.Views.Header({model: this.headerModel});
-    this.mainView = new Forerunner.Views.Main({});
+    Models:{},
+    Collections:{},
+    Views:{},
+    Routers:{},
+    initialize:function () {
+        var that = this
+        this.headerModel = new Forerunner.Models.Header();
 
-      $("body").append(  this.headerView.render().$el);
-      $("body").append(  this.mainView.render().$el);
-  }
+        this.headerModel.fetch().done(function () {
+            that.headerView = new Forerunner.Views.Header({model:this.headerModel});
+            that.mainView = new Forerunner.Views.Main({});
+            $("body").append(that.headerView.render().$el);
+            $("body").append(that.mainView.render().$el);
+        })
+
+
+    }
 };
 
-$(document).ready(function(){
+$(document).ready(function () {
     Forerunner.initialize();
 });

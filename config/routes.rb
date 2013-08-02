@@ -1,5 +1,6 @@
 Forerunner::Application.routes.draw do
   resource :oauth
+  match 'header' => 'welcome#header'
 
   root :to => 'welcome#index'
   # The priority is based upon order of creation:

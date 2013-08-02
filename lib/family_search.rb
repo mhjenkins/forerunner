@@ -16,8 +16,6 @@ class FamilySearch
     @dev_key = args[:dev_key]
     self.env = args[:env].downcase
     @redirect_uri = args[:redirect_uri].downcase
-
-
   end
 
   def env=(env)

@@ -4,7 +4,7 @@ Forerunner.Views.Header = Backbone.View.extend({
     template: JST['header'],
 
     render: function() {
-//        this.$el.html(this.template({login-link: ''}));
+        console.log(this.model)
         this.$el.html(this.template({ header: this.model }));
         return this;
     }
