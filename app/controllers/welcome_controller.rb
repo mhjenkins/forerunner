@@ -3,7 +3,6 @@ class WelcomeController < ApplicationController
 
   def index
     @fs = FamilySearch.new(FAMILY_SEARCH_INITIALIZER)
-    dev_key = 'WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK'
   end
 
   def header
@@ -13,7 +12,7 @@ class WelcomeController < ApplicationController
         render :nothing => true
       end
       format.json do
-        render :json => { :loginLink =>  @fs.authorize_uri, :devKey => @fs.dev_key }
+        render :json => { :loginLink =>  @fs.authorize_uri, :devKey => @fs.dev_key , :logged_in => @logged_in}
       end
     end
   end
