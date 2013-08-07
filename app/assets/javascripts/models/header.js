@@ -1,6 +1,7 @@
 Forerunner.Models.Header = Backbone.Model.extend({
     defaults: {
-        loginLink: ''
+        loginLink: '',
+        loggedIn: false
     },
     url: '/header.json'
 });

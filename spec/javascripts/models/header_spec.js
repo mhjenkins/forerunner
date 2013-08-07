@@ -12,6 +12,7 @@ describe('Forerunner.Models.Header', function(){
 
    it ('should have the correct default values', function(){
        expect(header.get('loginLink')).toEqual('')
+       expect(header.get('loggedIn')).toEqual(false)
    })
 
     describe('#save', function() {
@@ -32,11 +33,12 @@ describe('Forerunner.Models.Header', function(){
             var params = JSON.parse(request.requestBody);
             expect(params.loginLink).toBeDefined();
             expect(params.loginLink).toEqual('http://login.com');
+            expect(params.loggedIn).toEqual(false);
         });
 
         describe('request', function() {
             beforeEach(function() {
-                header.set({ name: 'New header to do' });
+                header.set({loginLink: 'http://new_login.com'});
             });
 
             describe('on create', function() {
