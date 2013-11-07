@@ -1,32 +1,54 @@
 require 'spec_helper'
 
 describe WelcomeController do
+  before do
+    #TODO mock FamilyConnect so it dosn't make any calls
+    #stub(FamilyConnect::Client).discover.with_any_args { NewcastleClient::FakeClientApi.new(:passkey => ('1234567890')) }
+    discovery = File.read(File.join('spec/sampledata/discovery.response'))
 
+    mock.instance_of(FamilyConnect::Client).discover{discovery}
+  end
   describe "GET 'index'" do
+    before do
+
+      module FamilyGemHelper
+        alias_method :authorize_test, :authorize
+
+        def authorize
+          'http://authorizeURL.com'
+        end
+      end
+      #WebMock.allow_net_connect!
+    end
+    after do
+      module FamilyGemHelper
+
+        alias_method :authorize, :authorize_test
+      end
+    end
     it "returns http success" do
       get 'index'
       response.should be_success
     end
 
     it 'should assign login uri' do
-      mock.instance_of(FamilySearch).authorize_uri{'someUri'}
-      #FamilySearch.any_instance.stub(:authorize_uri) do |args|
-      #  "someUri"
-      #end
+      #mock.instance_of(FamilySearch).authorize_uri{'someUri'}
 
       get 'index'
-      assigns(:fs).authorize_uri.should == 'someUri'
+      assigns(:authorize_uri).should == 'http://authorizeURL.com'
     end
   end
 
-  describe "GET 'footer'" do
+  describe "GET 'header'" do
     describe "rendering layout" do
       before do
-        @fs = FamilySearch.new(FAMILY_SEARCH_INITIALIZER)
-        @header_response = {:loginLink => @fs.authorize_uri, :devKey => @fs.dev_key, :logged_in => false}
-        @header_response_not_loggedin = {:loginLink => @fs.authorize_uri, :devKey => @fs.dev_key, :logged_in => true}
+        @fs = FamilyConnect::Client.new(FAMILY_SEARCH_INITIALIZER)
+        @header_response = {:loginLink => @fs.authorize_url, :devKey => @fs.dev_key, :logged_in => false}
+        @header_response_not_loggedin = {:loginLink => @fs.authorize_url, :devKey => @fs.dev_key, :logged_in => true}
 
       end
+
+
 
       it "renders no layout for json" do
         get :header, :format => :json

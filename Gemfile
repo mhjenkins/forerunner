@@ -26,6 +26,8 @@ gem 'backbone-on-rails'
 gem 'sass'
 gem "therubyracer"
 gem "typhoeus"
+#gem "familysearch", :git => 'git@github.com:bronislav/familysearch-rb.git'
+gem "family_connect", :git => 'git@github.com:goldentuna/family_connect.git'
 
 group :test, :development do
   gem 'rspec'
