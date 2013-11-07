@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'typhoeus'
 
 describe WelcomeController do
   before do
@@ -6,15 +7,18 @@ describe WelcomeController do
     #stub(FamilyConnect::Client).discover.with_any_args { NewcastleClient::FakeClientApi.new(:passkey => ('1234567890')) }
     discovery = File.read(File.join('spec/sampledata/discovery.response'))
 
-    mock.instance_of(FamilyConnect::Client).discover{discovery}
+    stub_request(:get, "https://sandbox.familysearch.org/.well-known/app-meta.json").
+        with(:headers => {'User-Agent'=>'Typhoeus - https://github.com/typhoeus/typhoeus'}).
+        to_return(:status => 200, :body => discovery, :headers => {})
+
   end
   describe "GET 'index'" do
     before do
 
       module FamilyGemHelper
-        alias_method :authorize_test, :authorize
+        alias_method :get_authorize_url_test, :get_authorize_url
 
-        def authorize
+        def get_authorize_url
           'http://authorizeURL.com'
         end
       end
@@ -23,7 +27,7 @@ describe WelcomeController do
     after do
       module FamilyGemHelper
 
-        alias_method :authorize, :authorize_test
+        alias_method :get_authorize_url, :get_authorize_url_test
       end
     end
     it "returns http success" do
@@ -43,8 +47,8 @@ describe WelcomeController do
     describe "rendering layout" do
       before do
         @fs = FamilyConnect::Client.new(FAMILY_SEARCH_INITIALIZER)
-        @header_response = {:loginLink => @fs.authorize_url, :devKey => @fs.dev_key, :logged_in => false}
-        @header_response_not_loggedin = {:loginLink => @fs.authorize_url, :devKey => @fs.dev_key, :logged_in => true}
+        @header_response = {:loginLink => @fs.authorize_url, :devKey => @fs.dev_key, :redirect_uri => @fs.redirect_uri, :logged_in => false}
+        @header_response_not_loggedin = {:loginLink => @fs.authorize_url, :devKey => @fs.dev_key,:redirect_uri => @fs.redirect_uri, :logged_in => true}
 
       end
 

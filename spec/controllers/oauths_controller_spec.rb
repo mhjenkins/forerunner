@@ -2,6 +2,22 @@ require 'spec_helper'
 
 
 describe OauthsController do
+  before do
+
+    module FamilyGemHelper
+      alias_method :get_token_test, :get_token
+
+      def get_token code
+        {"access_token" => "123456789"}
+      end
+    end
+  end
+  after do
+    module FamilyGemHelper
+
+      alias_method :get_token, :get_token_test
+    end
+  end
   it "should route to show" do
     get :show
     response.should be_redirect
@@ -9,7 +25,6 @@ describe OauthsController do
   it "should fail gracefully if no code parameter"
 
   it "should finish authentication if code parameter" do
-    mock.instance_of(Typhoeus::Request).run {Typhoeus::Response.new({:code => 200, :body => '{"access_token":"123456789"}'})}
 
     session[:access_token] = nil
     get :show, :code => '123'

@@ -1,8 +1,12 @@
 module FamilyGemHelper
   private
-  def authorize
+  def get_authorize_url
     initialize_api
     @client_api.authorize_url
+  end
+
+  def get_redirect_uri
+    @client_api.redirect_uri
   end
 
   def get_token code

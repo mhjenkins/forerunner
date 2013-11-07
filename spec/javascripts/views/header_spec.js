@@ -8,7 +8,9 @@ describe('HeaderView', function(){
 
     beforeEach(function(){
        model = new Forerunner.Models.Header({
-           loginLink: 'http://loginLink.com'
+           loginLink: 'http://loginLink.com',
+           devKey: '123',
+           redirectUri: 'localhost:8080'
        });
         view = new Forerunner.Views.Header({model: model});
     });
@@ -21,7 +23,16 @@ describe('HeaderView', function(){
         expect( view.render().$el ).toBe('div.header');
     });
 
-    it('should have a login link',function(){
+    it('should have a login link event', function(){
+        var locationSpy = spyOn(window.location, 'assign');
+        var loginBtn = view.render().$el.find('#login-btn')[0];
+        $(loginBtn).click();
+        expect(locationSpy).toHaveBeenCalled();
+        expect(locationSpy).toHaveBeenCalledWith('http://loginLink.com?response_type=code&&client_id=123&&redirect_uri=localhost:8080');
+
+    });
+
+    xit('should have a login link',function(){
         var loginBtn = view.render().$el.find('#login-btn')[0]
         expect(loginBtn).toBeDefined();
         expect($(loginBtn).attr('href')).toEqual('http://loginLink.com')

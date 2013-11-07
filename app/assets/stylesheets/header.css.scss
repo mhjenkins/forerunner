@@ -7,6 +7,20 @@
   margin-top: 15px;
   float: right;
   font-weight: bold;
+  color: rgb(66, 48, 36);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+#login-btn:hover{
+  color: rgb(63, 124, 80);
 }
 
 .logo-icon {

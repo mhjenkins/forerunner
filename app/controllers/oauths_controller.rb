@@ -1,11 +1,10 @@
-
+require "family_gem_helper"
 class OauthsController < ApplicationController
+  include FamilyGemHelper
   def show
-    @fs = FamilySearch.new(FAMILY_SEARCH_INITIALIZER)
 
     if(params[:code])
-      puts "**********************#{params[:code]}"
-      response = @fs.get_access_token(params[:code])
+      response = get_token params[:code]
       access_token = response['access_token']
       session[:access_token] = access_token
     end
