@@ -26,10 +26,10 @@ describe WelcomeController do
     end
     after do
       module FamilyGemHelper
-
         alias_method :get_authorize_url, :get_authorize_url_test
       end
     end
+
     it "returns http success" do
       get 'index'
       response.should be_success

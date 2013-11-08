@@ -1,5 +1,6 @@
 Forerunner::Application.routes.draw do
   resource :oauth
+  resource :current_user
   match 'header' => 'welcome#header'
 
   root :to => 'welcome#index'
