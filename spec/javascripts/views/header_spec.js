@@ -32,12 +32,20 @@ describe('HeaderView', function(){
 
     });
 
-    xit('should have a login link',function(){
+    it('should change login to log out if :logged_in is true',function(){
+        model.set({'logged_in':true})
         var loginBtn = view.render().$el.find('#login-btn')[0]
         expect(loginBtn).toBeDefined();
-        expect($(loginBtn).attr('href')).toEqual('http://loginLink.com')
-//        expect(view.render().$el.find('#login-btn').length).toBeTruthy();
+        expect($(loginBtn).text()).toEqual('Log Out')
     });
 
+    it('should log out if logged in', function(){
+        model.set({'logged_in':true})
+        var locationSpy = spyOn(window.location, 'assign');
+        var loginBtn = view.render().$el.find('#login-btn')[0];
+        $(loginBtn).click();
+        expect(locationSpy).toHaveBeenCalled();
+        expect(locationSpy).toHaveBeenCalledWith('/oauth?logout=true');
+    });
 
 });

@@ -22,7 +22,13 @@ describe OauthsController do
     get :show
     response.should be_redirect
   end
-  it "should fail gracefully if no code parameter"
+
+  it "should fail gracefully if no code parameter" do
+    session[:access_token] = nil
+    get :show
+    response.should be_redirect
+    session[:access_token].should be_nil
+  end
 
   it "should finish authentication if code parameter" do
 
@@ -30,6 +36,15 @@ describe OauthsController do
     get :show, :code => '123'
     response.should be_redirect
     session[:access_token].should == '123456789'
+  end
+
+  describe '#logout' do
+    it 'should set session access_token to nil' do
+      session[:access_token] = '1234'
+      get :show, :logout => true
+      response.should be_redirect
+      session[:access_token].should be_nil
+    end
   end
 
 end
