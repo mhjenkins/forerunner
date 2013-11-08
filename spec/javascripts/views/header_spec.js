@@ -10,7 +10,7 @@ describe('HeaderView', function(){
        model = new Forerunner.Models.Header({
            loginLink: 'http://loginLink.com',
            devKey: '123',
-           redirectUri: 'localhost:8080'
+           redirect_uri: 'localhost:8080'
        });
         view = new Forerunner.Views.Header({model: model});
     });
