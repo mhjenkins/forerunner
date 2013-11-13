@@ -10,10 +10,11 @@ class OauthsController < ApplicationController
     end
 
     if(params[:logout])
+      #response = delete_token session[:access_token]
+      #session[:access_token] = response['access_token']
       session[:access_token] = nil
     end
 
-    #redirect_to :action => :index, :page => params['page']
     redirect_to '/'
   end
 end

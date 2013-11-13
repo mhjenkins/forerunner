@@ -6,9 +6,14 @@ describe OauthsController do
 
     module FamilyGemHelper
       alias_method :get_token_test, :get_token
+      alias_method :delete_token_test, :delete_token
 
       def get_token code
         {"access_token" => "123456789"}
+      end
+
+      def delete_token access_token
+        {"access_token" => nil}
       end
     end
   end
@@ -16,6 +21,7 @@ describe OauthsController do
     module FamilyGemHelper
 
       alias_method :get_token, :get_token_test
+      alias_method :delete_token, :delete_token_test
     end
   end
   it "should route to show" do

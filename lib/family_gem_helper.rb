@@ -14,14 +14,19 @@ module FamilyGemHelper
     @client_api.get_token code
   end
 
+  def delete_token access_token
+    initialize_api
+    @client_api.delete_token access_token
+  end
+
   def get_dev_key
     initialize_api
     @client_api.dev_key
   end
 
-  def get_current_user
+  def get_current_user access_token
     initialize_api
-    @client_api.get_current_user
+    @client_api.get_current_user access_token
   end
 
   def initialize_api

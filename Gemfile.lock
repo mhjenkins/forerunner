@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:goldentuna/family_connect.git
-  revision: e477f4633e1ea16aabb899980f98d71039382641
+  revision: 8bb10dda1aed83051fddd611dae03fd46396ff81
   specs:
-    family_connect (0.0.1)
+    family_connect (0.0.2)
 
 GEM
   remote: https://rubygems.org/
