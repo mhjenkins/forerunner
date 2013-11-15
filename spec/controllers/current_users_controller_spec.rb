@@ -25,7 +25,7 @@ describe CurrentUsersController do
       response.should be_success
       response.should_not render_template 'layouts/application'
       result = response.body
-      result.should == @current_user.to_json
+      result.should == @current_user['users'].first.to_json
     end
 
     it "renders nothing html" do

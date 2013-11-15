@@ -6,7 +6,7 @@ class CurrentUsersController < ApplicationController
   def show
     current_user = {}
     begin
-      current_user = get_current_user session[:access_token]
+      current_user = get_current_user(session[:access_token])['users'].first
     rescue FamilyConnect::Error::BadAccessToken
       current_user = {:error => 'error', :message => 'Bad access token'}
     end
