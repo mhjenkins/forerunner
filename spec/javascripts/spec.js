@@ -2,7 +2,7 @@
 //= require sinon
 
 //= require_self
-//= require_tree .
+//= require_tree ./
 
 window.itShouldBePOST = function() {
     it('should be POST', function() {

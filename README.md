@@ -1,4 +1,0 @@
-forerunner
-==========
-
-family search project

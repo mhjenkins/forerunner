@@ -1,8 +1,6 @@
 require "family_gem_helper"
 class CurrentUsersController < ApplicationController
-
   include FamilyGemHelper
-
   def show
     current_user = {}
     begin
