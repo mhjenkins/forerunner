@@ -6,8 +6,12 @@ window.Forerunner = {
     initialize:function () {
         var that = this
         this.headerModel = new Forerunner.Models.Header();
+        this.currentUserModel = new Forerunner.Models.CurrentUser();
 
         this.headerModel.fetch().done(function () {
+            if (that.headerModel.get('logged_in')) {
+              that.currentUserModel.fetch()
+            }
             that.headerView = new Forerunner.Views.Header({model:that.headerModel});
             that.mainView = new Forerunner.Views.Main({});
             $("body").append(that.headerView.render().$el);

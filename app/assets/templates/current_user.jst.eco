@@ -1,1 +1,1 @@
-<span class="name"><%= @current_user.get('fullName') %></span>
+<span class="name"><%= @current_user.get('contactName') %></span>

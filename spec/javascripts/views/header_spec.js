@@ -48,4 +48,26 @@ describe('HeaderView', function(){
         expect(locationSpy).toHaveBeenCalledWith('/oauth?logout=true');
     });
 
+    describe('currentUserView',function(){
+       it('should render a user name if CurrentUserModel', function(){
+           var new_model = new Forerunner.Models.Header({
+               loginLink: 'http://loginLink.com',
+               devKey: '123',
+               redirect_uri: 'localhost:8080',
+               current_user_model: { "contactName" : "Pete Townsend"}
+           });
+           var new_view = new Forerunner.Views.Header({model: model});
+           var user_name = view.render().$el.find('span.name');
+           console.log(user_name)
+           expect($(user_name).length).toBeGreaterThan(0);
+           expect($(user_name).text()).toEqual('Pete Townsend')
+
+
+       });
+
+       it('should not render a user name if CurrentUserModel', function(){
+
+       });
+    });
+
 });

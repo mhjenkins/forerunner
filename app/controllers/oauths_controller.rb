@@ -6,6 +6,7 @@ class OauthsController < ApplicationController
     if(params[:code])
       response = get_token params[:code]
       access_token = response['access_token']
+      puts "access_token: #{access_token}"
       session[:access_token] = access_token
     end
 

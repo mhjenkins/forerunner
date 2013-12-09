@@ -34,6 +34,35 @@ describe CurrentUsersController do
     end
   end
 
+  describe '#error' do
+    before do
+
+      module FamilyGemHelper
+        alias_method :get_current_user_test, :get_current_user
+
+        def get_current_user access_token
+          {"errors" =>[{"code" => 405,"message"=>"Method Not Allowed"}]}
+        end
+      end
+    end
+
+    after do
+      module FamilyGemHelper
+        alias_method :get_current_user, :get_current_user_test
+      end
+    end
+
+    it 'should fail gracefully if api returns error' do
+      get :show, :format => :json
+      response.should be_success
+      response.should_not render_template 'layouts/application'
+      result = response.body
+      result.should == {:error => 'error', :code => 405, :message => 'Method Not Allowed'}.to_json
+      #{"errors":[{"code":405,"message":"Method Not Allowed"}]}
+    end
+
+  end
+
   it 'should return empty hash if no access token' do
     get :show, :format => :json
     response.should be_success

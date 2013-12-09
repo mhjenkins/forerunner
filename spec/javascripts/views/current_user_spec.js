@@ -32,6 +32,17 @@ describe('Current User View', function(){
 
     it('should display the user name', function(){
         var name = view.render().$el.find('span.name');
-        expect($(name).text()).toEqual('Pete Townsend')
+        expect($(name).text()).toEqual('Pete Townsend');
     })
+
+    it('should render on model change', function(){
+        var render_spy = spyOn(Forerunner.Views.CurrentUser.prototype, 'render');
+        var change_model = new Forerunner.Models.CurrentUser({
+            "contactName" : "Bob Smith"
+        });
+        var rerender_view = new Forerunner.Views.CurrentUser({model: change_model});
+        expect(render_spy).not.toHaveBeenCalled();
+        change_model.set('contactName', 'John Smith')
+        expect(render_spy).toHaveBeenCalled();
+    });
 });
