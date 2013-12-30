@@ -4,20 +4,12 @@ Forerunner.Views.Header = Backbone.View.extend({
     template:JST['header'],
 
     initialize: function() {
+        that = this;
         this.on('login',this.doLogin,this);
-        var model = new Forerunner.Models.CurrentUser({
-            "id" : "cis.MMM.RX9",
-            "links" : {
-                "self" : {
-                    "href" : "https://familysearch.org/platform/users/current"
-                }
-            },
-            "contactName" : "Pete Townsend",
-            "fullName" : "Pete Townsend",
-            "email" : "peter@acme.org",
-            "treeUserId" : "PXRQ-FMXT"
-        });
-        this.user_view = Forerunner.Views.CurrentUser({model: model});
+        this.model.on('change',this.render,this);
+        if(that.model.get("current_user_model")){
+          this.user_view = new Forerunner.Views.CurrentUser({model:that.model.get("current_user_model")});
+        }
     },
 
     render:function () {
@@ -35,9 +27,10 @@ Forerunner.Views.Header = Backbone.View.extend({
            that.trigger('login',logged_in, that)
         });
 
-//
-//        user_view
-
+//        that.user_view.model = this.model.get("current_user_model")
+        if(that.model.get("current_user_model")){
+            $(this.$el.find('.user')).append(that.user_view.render().$el);
+        }
         return this;
     },
 

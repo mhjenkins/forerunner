@@ -1,3 +1,4 @@
 <div class='logo-icon'></div>
 <div class="logo-text"></div>
+<div class='user'></div>
 <div id='login-btn'>Login</div>

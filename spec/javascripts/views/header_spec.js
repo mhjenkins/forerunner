@@ -7,6 +7,7 @@ describe('HeaderView', function(){
     var model;
 
     beforeEach(function(){
+//        var locationSpy = spyOn(window.location, 'assign');
        model = new Forerunner.Models.Header({
            loginLink: 'http://loginLink.com',
            devKey: '123',
@@ -50,23 +51,62 @@ describe('HeaderView', function(){
 
     describe('currentUserView',function(){
        it('should render a user name if CurrentUserModel', function(){
+           current_user_model = new Forerunner.Models.CurrentUser({
+               "id" : "cis.MMM.RX9",
+               "links" : {
+                   "self" : {
+                       "href" : "https://familysearch.org/platform/users/current"
+                   }
+               },
+               "contactName" : "Pete Townsend",
+               "fullName" : "Pete Townsend",
+               "email" : "peter@acme.org",
+               "treeUserId" : "PXRQ-FMXT"
+           });
+
+
            var new_model = new Forerunner.Models.Header({
                loginLink: 'http://loginLink.com',
                devKey: '123',
                redirect_uri: 'localhost:8080',
-               current_user_model: { "contactName" : "Pete Townsend"}
-           });
-           var new_view = new Forerunner.Views.Header({model: model});
-           var user_name = view.render().$el.find('span.name');
-           console.log(user_name)
+               current_user_model:current_user_model
+           })
+
+
+           var new_view = new Forerunner.Views.Header({model: new_model});
+           var user_name = new_view.render().$el.find('span.name');
            expect($(user_name).length).toBeGreaterThan(0);
            expect($(user_name).text()).toEqual('Pete Townsend')
 
 
        });
 
-       it('should not render a user name if CurrentUserModel', function(){
+       it('should not render a user name if no CurrentUserModel', function(){
+           current_user_model = new Forerunner.Models.CurrentUser({
+               "id" : "cis.MMM.RX9",
+               "links" : {
+                   "self" : {
+                       "href" : "https://familysearch.org/platform/users/current"
+                   }
+               },
+               "contactName" : "Pete Townsend",
+               "fullName" : "Pete Townsend",
+               "email" : "peter@acme.org",
+               "treeUserId" : "PXRQ-FMXT"
+           });
 
+
+           var new_model = new Forerunner.Models.Header({
+               loginLink: 'http://loginLink.com',
+               devKey: '123',
+               redirect_uri: 'localhost:8080',
+           })
+
+
+           var new_view = new Forerunner.Views.Header({model: new_model});
+           var user_name = new_view.render().$el.find('span.name');
+           expect($(user_name).length).toEqual(0);
+           expect(new_view.render().$el.find('.user').is(':empty')).toEqual(true)
        });
     });
 

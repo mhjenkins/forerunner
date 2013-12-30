@@ -4,7 +4,8 @@ Forerunner.Views.CurrentUser = Backbone.View.extend({
     template:JST['current_user'],
 
     initialize: function() {
-        this.model.on('change',this.render,this);
+        var that = this;
+        this.model.on('change',that.render,that);
     },
 
     render:function () {
